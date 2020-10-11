@@ -9,8 +9,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.SimpleAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +32,6 @@ import app.cekongkir.activity.TabActivity;
 import app.cekongkir.adapter.ResiAdapter;
 import app.cekongkir.data.DatabaseHelper;
 import app.cekongkir.data.model.Resi;
-import app.cekongkir.utils.CommonUtils;
 import app.cekongkir.utils.NonScrollListView;
 import mehdi.sakout.fancybuttons.FancyButton;
 

@@ -10,14 +10,14 @@
     tools:showIn="@layout/activity_tab"
     android:background="@color/colorPrimary">
 
-    <android.support.design.widget.TabLayout
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabSelectedTextColor="@color/colorWhite"
         app:tabTextColor="@color/colorHint"
         android:background="@color/colorPrimary"/>
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_below="@+id/tabLayout"
         android:layout_above="@+id/adView"
