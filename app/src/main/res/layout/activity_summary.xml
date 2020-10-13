@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".oldjavaversion.activity.SummaryActivity"
+    tools:context=".java.activity.SummaryActivity"
     android:background="@drawable/gradien_background">
 
     <ScrollView
@@ -328,7 +328,7 @@
                     android:layout_marginBottom="@dimen/fab_margin"
                     android:background="@color/colorPrimaryDark"/>
 
-                <app.cekongkir.oldjavaversion.utils.NonScrollListView
+                <app.cekongkir.java.utils.NonScrollListView
                     android:id="@+id/lst_result"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

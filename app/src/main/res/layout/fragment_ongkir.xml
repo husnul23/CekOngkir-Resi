@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".oldjavaversion.fragment.OngkirFragment"
+    tools:context=".java.fragment.OngkirFragment"
     android:background="@android:color/transparent">
 
     <!-- TODO: Update blank fragment layout -->
@@ -88,7 +88,7 @@
                     android:text="Harga ongkos kirim / 1 KG"
                     android:layout_margin="10dp"
                     android:textColor="@color/colorWhite"
-                    android:textAlignment="center"/>
+                    android:gravity="center"/>
 
                 <ProgressBar
                     android:visibility="gone"
@@ -98,7 +98,7 @@
                     android:indeterminateTint="@color/colorWhite"
                     android:layout_marginTop="@dimen/fab_margin"/>
 
-                <app.cekongkir.oldjavaversion.utils.NonScrollListView
+                <app.cekongkir.java.utils.NonScrollListView
                     android:id="@+id/lst_result"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

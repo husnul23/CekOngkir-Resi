@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".upgradetokotlinversion.CekOngkirApplication"
+        android:name=".kotlin.CekOngkirApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,13 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".oldjavaversion.activity.TabActivity"
+            android:name=".java.activity.TabActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             />
         <activity
-            android:name=".upgradetokotlinversion.ui.home.HomeActivity"
+            android:name=".kotlin.ui.home.HomeActivity"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,9 +30,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".oldjavaversion.activity.MainActivity" />
+        <activity android:name=".java.activity.MainActivity" />
         <activity
-            android:name=".oldjavaversion.activity.SummaryActivity"
+            android:name=".java.activity.SummaryActivity"
             android:screenOrientation="portrait" />
     </application>
 

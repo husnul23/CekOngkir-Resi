@@ -2,12 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="app.cekongkir.upgradetokotlinversion.ui.cost.CostFragment">
+    tools:context="app.cekongkir.kotlin.ui.cost.CostFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <Button
+        android:id="@+id/button_cost"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:text="CEK ONGKIR"
+        android:gravity="center"/>
 
 </FrameLayout>
