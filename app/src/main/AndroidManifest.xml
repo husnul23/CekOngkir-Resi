@@ -15,15 +15,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".kotlin.ui.city.CityActivity"></activity>
         <activity
             android:name=".java.activity.TabActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
-        <activity
-            android:name=".kotlin.ui.home.HomeActivity"
-            >
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".kotlin.ui.home.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

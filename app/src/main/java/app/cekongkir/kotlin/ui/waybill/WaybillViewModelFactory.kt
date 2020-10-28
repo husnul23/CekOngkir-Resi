@@ -2,7 +2,7 @@ package app.cekongkir.kotlin.ui.waybill
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import app.cekongkir.kotlin.ui.RajaOngkirRepository
+import app.cekongkir.kotlin.remote.RajaOngkirRepository
 
 class WaybillViewModelFactory(
     val repository: RajaOngkirRepository

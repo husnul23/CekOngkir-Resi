@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.cekongkir.kotlin.remote.Resource
 import app.cekongkir.kotlin.remote.responses.WaybillResponse
-import app.cekongkir.kotlin.ui.RajaOngkirRepository
+import app.cekongkir.kotlin.remote.RajaOngkirRepository
 import kotlinx.coroutines.launch
 import retrofit2.Response
 

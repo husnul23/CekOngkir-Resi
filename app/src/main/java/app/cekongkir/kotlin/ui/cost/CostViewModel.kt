@@ -5,7 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.cekongkir.kotlin.remote.Resource
 import app.cekongkir.kotlin.remote.responses.CityResponse
-import app.cekongkir.kotlin.ui.RajaOngkirRepository
+import app.cekongkir.kotlin.remote.responses.CostResponse
+import app.cekongkir.kotlin.remote.RajaOngkirRepository
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
@@ -13,15 +14,20 @@ class CostViewModel(
     private val repository: RajaOngkirRepository
 ) : ViewModel() {
 
-    val cityResponse: MutableLiveData<Resource<CityResponse>> = MutableLiveData()
+    val costResponse: MutableLiveData<Resource<CostResponse>> = MutableLiveData()
 
-    fun fetchCity() = viewModelScope.launch {
-        cityResponse.postValue(Resource.Loading())
-        val response = repository.fetchCity()
-        cityResponse.postValue(handleCityResponse(response))
+    fun fetchCost(
+            origin: String, originType: String, destination: String,
+            destinationType: String, weight: String, courier: String
+    ) = viewModelScope.launch {
+        costResponse.postValue(Resource.Loading())
+        val response = repository.fetchCost(
+                origin, originType, destination, destinationType, weight, courier
+        )
+        costResponse.postValue(handleCostResponse(response))
     }
 
-    private fun handleCityResponse(response: Response<CityResponse>) : Resource<CityResponse> {
+    private fun handleCostResponse(response: Response<CostResponse>) : Resource<CostResponse> {
         if (response.isSuccessful) {
             response.body()?.let {
                 return Resource.Success(it)

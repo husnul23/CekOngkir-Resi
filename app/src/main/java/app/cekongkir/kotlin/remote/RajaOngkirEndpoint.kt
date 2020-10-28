@@ -1,25 +1,29 @@
 package app.cekongkir.kotlin.remote
 
-import app.cekongkir.kotlin.remote.responses.CityResponse
-import app.cekongkir.kotlin.remote.responses.ProviceResponse
-import app.cekongkir.kotlin.remote.responses.SubdistrictResponse
-import app.cekongkir.kotlin.remote.responses.WaybillResponse
+import app.cekongkir.kotlin.remote.responses.*
 import retrofit2.Response
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface RajaOngkirEndpoint {
-
-    @GET("provice")
-    suspend fun provice() : Response<ProviceResponse>
 
     @GET("city")
     suspend fun city() : Response<CityResponse>
 
     @GET("subdistrict")
-    suspend fun subdistrict() : Response<SubdistrictResponse>
+    suspend fun subdistrict(
+            @Query("city") city: String
+    ) : Response<SubdistrictResponse>
+
+    @FormUrlEncoded
+    @POST("cost")
+    suspend fun cost(
+            @Field("origin") origin: String,
+            @Field("originType") originType: String,
+            @Field("destination") destination: String,
+            @Field("destinationType") destinationType: String,
+            @Field("weight") weight: String,
+            @Field("courier") courier: String
+    ) : Response<CostResponse>
 
     @FormUrlEncoded
     @POST("waybill")

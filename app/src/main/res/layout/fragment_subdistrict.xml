@@ -1,10 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="app.cekongkir.kotlin.ui.city.CityFragment"
-    >
+    tools:context=".kotlin.ui.city.SubdistrictFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
             android:id="@+id/edit_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Cari Kota"
+            android:hint="Cari kecamatan"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -23,7 +23,7 @@
             android:layout_marginEnd="20dp"
             />
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list_city"
+            android:id="@+id/list_subdistrict"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,4 +33,5 @@
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </FrameLayout>

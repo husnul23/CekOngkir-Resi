@@ -29,8 +29,7 @@ class CityAdapter (var results: ArrayList<CityResponse.Result>, var listener: On
 
     }
 
-    class ViewHolder(val view: View): RecyclerView.ViewHolder(view){
-    }
+    class ViewHolder(val view: View): RecyclerView.ViewHolder(view)
 
     fun setData(data: List<CityResponse.Result>) {
         results.clear()

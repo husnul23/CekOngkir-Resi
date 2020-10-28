@@ -5,28 +5,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.cekongkir.R
 import app.cekongkir.kotlin.remote.Resource
-import app.cekongkir.kotlin.remote.responses.CityResponse
-import kotlinx.android.synthetic.main.fragment_city.view.*
-import timber.log.Timber
+import app.cekongkir.kotlin.remote.responses.SubdistrictResponse
+import app.cekongkir.kotlin.toast
+import kotlinx.android.synthetic.main.fragment_subdistrict.view.*
 
-class CityFragment : Fragment() {
+class SubdistrictFragment : Fragment() {
 
     private lateinit var fragmentView: View
-    private lateinit var cityAdapter: CityAdapter
+    private lateinit var subdistrictAdapter: SubdistrictAdapter
     private val viewModel by lazy {
         ViewModelProvider(requireActivity()).get(CityViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        fragmentView = inflater.inflate(R.layout.fragment_city, container, false)
+        fragmentView = inflater.inflate(R.layout.fragment_subdistrict, container, false)
         return fragmentView
     }
 
@@ -39,41 +37,37 @@ class CityFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.fetchCity()
+        viewModel.fetchSubdistrict( requireArguments().getString("city")!! )
     }
 
     private fun setupView(){
         (requireActivity() as CityActivity)
-                .supportActionBar!!.title = "Pilih Kota"
+                .supportActionBar!!.title = "Pilih Kecamatan"
     }
 
     private fun setupRecyclerView(){
-        cityAdapter = CityAdapter(arrayListOf(), object : CityAdapter.OnAdapterListener {
-            override fun onClick(result: CityResponse.Result) {
-                val bundle = bundleOf("city" to result.city_id)
-                findNavController().navigate(
-                        R.id.action_cityFragment_to_subdistrictFragment,
-                        bundle
-                )
+        subdistrictAdapter = SubdistrictAdapter(arrayListOf(), object : SubdistrictAdapter.OnAdapterListener {
+            override fun onClick(result: SubdistrictResponse.Result) {
+                requireActivity().finish()
             }
         })
-        fragmentView.list_city.apply {
+        fragmentView.list_subdistrict.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = cityAdapter
+            adapter = subdistrictAdapter
         }
     }
 
     private fun setupObserver(){
-        viewModel.cityResponse.observe(viewLifecycleOwner, Observer {
+        viewModel.subdistrictResponse.observe(viewLifecycleOwner, Observer {
             when(it) {
                 is Resource.Loading -> {
-
+                    requireActivity().toast(resources.getString(R.string.message_loading))
                 }
                 is Resource.Success -> {
-                    cityAdapter.setData( it.data!!.rajaongkir.results )
+                    subdistrictAdapter.setData( it.data!!.rajaongkir.results )
                 }
                 is Resource.Error -> {
-
+                    requireActivity().toast(resources.getString(R.string.message_error))
                 }
             }
         })

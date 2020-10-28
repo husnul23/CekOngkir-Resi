@@ -3,6 +3,9 @@
     <string name="lorem_ipsum">Lorem Ipsum</string>
     <string name="nulll">-</string>
 
+    <string name="message_loading">Sedang memuat</string>
+    <string name="message_error">Terjadi kesalahan</string>
+
     <string name="banner_ad_unit_id">ca-app-pub-2579754990350876/5557071144</string>
     <string name="interstitial_ad_unit_id">ca-app-pub-2579754990350876/7033804340</string>
 

@@ -2,14 +2,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="app.cekongkir.kotlin.ui.cost.CostFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <Button
-        android:id="@+id/button_cost"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="CEK ONGKIR"
-        android:gravity="center"/>
+        android:layout_height="match_parent"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            >
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edit_origin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:hint="Kota asal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edit_destination"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:focusable="false"
+                android:hint="Kota Tujuan"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_origin"
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:theme="@style/Theme.MaterialComponents.Light"
+                android:id="@+id/button_cost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="CEK ONGKOS KIRIM"
+                app:cornerRadius="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edit_destination"
+                />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/label_weight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Harga ongkos kirim / 1 KG"
+                android:layout_margin="10dp"
+                android:textColor="@color/colorBackground"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_cost"
+                />
+
+            <ProgressBar
+                android:id="@+id/progress_cost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/label_weight"
+                android:layout_marginTop="10dp"
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_cost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/label_weight"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/darker_gray"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </FrameLayout>

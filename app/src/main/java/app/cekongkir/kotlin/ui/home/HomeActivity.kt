@@ -38,9 +38,7 @@ class HomeActivity : AppCompatActivity(), KodeinAware {
 
     override fun onStart() {
         super.onStart()
-        costViewModel.fetchCity()
-        waybillViewModel
-                .fetchWaybill(app.cekongkir.kotlin.database.Constant.sicepat, "sicepat")
+        waybillViewModel.fetchWaybill(app.cekongkir.kotlin.database.Constant.sicepat, "sicepat")
     }
 
     private fun setupView(){
