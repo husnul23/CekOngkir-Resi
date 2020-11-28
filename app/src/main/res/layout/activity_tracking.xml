@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".kotlin.ui.tracking.TrackingActivity">
+    tools:context=".ui.tracking.TrackingActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/host_waybill"

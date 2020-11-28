@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/waybillFragment"
-        android:name="app.cekongkir.kotlin.ui.tracking.TrackingFragment"
+        android:name="app.cekongkir.ui.tracking.TrackingFragment"
         android:label="fragment_waybill"
         tools:layout="@layout/fragment_tracking" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/waybillDetailFragment"
-        android:name="app.cekongkir.kotlin.ui.trackingresult.TrackingResultFragment"
+        android:name="app.cekongkir.ui.trackingresult.TrackingResultFragment"
         android:label="fragment_waybill_detail"
         tools:layout="@layout/fragment_tracking_result" />
 </navigation>
