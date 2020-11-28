@@ -21,7 +21,7 @@ class TrackingActivity : AppCompatActivity() , KodeinAware {
     }
 
     private fun setupView(){
-        supportActionBar!!.title = "Cek Resi"
+        supportActionBar!!.title = "Lacak No. Resi"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
