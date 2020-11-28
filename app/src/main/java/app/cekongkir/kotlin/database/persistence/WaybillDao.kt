@@ -1,19 +1,20 @@
 package app.cekongkir.kotlin.database.persistence
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
 interface WaybillDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(waybillEntity: WaybillEntity)
+    suspend fun insert(waybillEntity: WaybillEntity)
 
     @Update
-    fun update(waybillEntity: WaybillEntity)
+    suspend fun update(waybillEntity: WaybillEntity)
 
     @Query("DELETE FROM tableWaybill")
-    fun delete()
+    suspend fun delete()
 
     @Query("SELECT * FROM tableWaybill")
-    fun select(): List<WaybillEntity>
+    fun select(): LiveData<List<WaybillEntity>>
 }

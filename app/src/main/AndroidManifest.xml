@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".kotlin.ui.city.CityActivity"></activity>
+        <activity android:name=".kotlin.ui.tracking.TrackingActivity"></activity>
+        <activity android:name=".kotlin.ui.city.CityActivity" />
         <activity
             android:name=".java.activity.TabActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

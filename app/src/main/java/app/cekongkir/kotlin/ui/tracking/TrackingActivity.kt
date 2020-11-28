@@ -1,4 +1,4 @@
-package app.cekongkir.kotlin.ui.city
+package app.cekongkir.kotlin.ui.tracking
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,20 +8,25 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
 
-class CityActivity : AppCompatActivity() , KodeinAware {
+class TrackingActivity : AppCompatActivity() , KodeinAware {
 
     override val kodein by kodein()
-    private val cityViewModelFactory: CityViewModelFactory by instance()
+    private val waybillViewModelFactory: WaybillViewModelFactory by instance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_city)
+        setContentView(R.layout.activity_tracking)
+        setupView()
         setupViewModel()
+    }
+
+    private fun setupView(){
+        supportActionBar!!.title = "Cek Resi"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun setupViewModel(){
-        ViewModelProvider(this, cityViewModelFactory).get(CityViewModel::class.java)
+        ViewModelProvider(this, waybillViewModelFactory).get(WaybillViewModel::class.java)
     }
 
     override fun onSupportNavigateUp(): Boolean {

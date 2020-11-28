@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".java.activity.SummaryActivity"
-    android:background="@drawable/gradien_background">
+    >
+<!--    android:background="@drawable/gradien_background"-->
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,7 +25,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/fab_margin"
-                android:indeterminateTint="@color/colorWhite"/>
+                android:indeterminateTint="@color/colorWhite"
+                />
 
             <LinearLayout
                 android:visibility="invisible"
@@ -38,7 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Origin - Destination"
-                    android:textColor="@color/colorWhite"/>
+                    />
 
                 <LinearLayout
                     android:visibility="visible"
@@ -55,7 +58,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:text="Ringkasan Pengiriman"
-                        android:textColor="@color/colorHint"
                         android:textStyle="bold"
                         android:gravity="center"/>
                     <View

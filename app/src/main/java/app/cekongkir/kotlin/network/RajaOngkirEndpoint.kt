@@ -1,6 +1,6 @@
-package app.cekongkir.kotlin.remote
+package app.cekongkir.kotlin.network
 
-import app.cekongkir.kotlin.remote.responses.*
+import app.cekongkir.kotlin.network.responses.*
 import retrofit2.Response
 import retrofit2.http.*
 

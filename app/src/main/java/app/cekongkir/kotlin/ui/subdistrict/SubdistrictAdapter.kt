@@ -1,14 +1,14 @@
-package app.cekongkir.kotlin.ui.city
+package app.cekongkir.kotlin.ui.subdistrict
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import app.cekongkir.R
-import app.cekongkir.kotlin.remote.responses.SubdistrictResponse
+import app.cekongkir.kotlin.network.responses.SubdistrictResponse
 import kotlinx.android.synthetic.main.adapter_subdistrict.view.*
 
-class SubdistrictAdapter (var results: ArrayList<SubdistrictResponse.Result>, var listener: OnAdapterListener):
+class SubdistrictAdapter (var results: ArrayList<SubdistrictResponse.Rajaongkir.Result>, var listener: OnAdapterListener):
         RecyclerView.Adapter<SubdistrictAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -32,13 +32,13 @@ class SubdistrictAdapter (var results: ArrayList<SubdistrictResponse.Result>, va
     class ViewHolder(val view: View): RecyclerView.ViewHolder(view){
     }
 
-    fun setData(data: List<SubdistrictResponse.Result>) {
+    fun setData(data: List<SubdistrictResponse.Rajaongkir.Result>) {
         results.clear()
         results.addAll(data)
         notifyDataSetChanged()
     }
 
     interface OnAdapterListener {
-        fun onClick(result: SubdistrictResponse.Result)
+        fun onClick(result: SubdistrictResponse.Rajaongkir.Result)
     }
 }

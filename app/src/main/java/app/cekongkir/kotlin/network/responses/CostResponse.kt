@@ -1,4 +1,4 @@
-package app.cekongkir.kotlin.remote.responses
+package app.cekongkir.kotlin.network.responses
 
 data class CostResponse(
     val rajaongkir: Rajaongkir

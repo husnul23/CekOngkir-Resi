@@ -3,10 +3,9 @@ package app.cekongkir.kotlin.ui.cost
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.cekongkir.kotlin.remote.Resource
-import app.cekongkir.kotlin.remote.responses.CityResponse
-import app.cekongkir.kotlin.remote.responses.CostResponse
-import app.cekongkir.kotlin.remote.RajaOngkirRepository
+import app.cekongkir.kotlin.network.Resource
+import app.cekongkir.kotlin.network.responses.CostResponse
+import app.cekongkir.kotlin.network.RajaOngkirRepository
 import kotlinx.coroutines.launch
 import retrofit2.Response
 

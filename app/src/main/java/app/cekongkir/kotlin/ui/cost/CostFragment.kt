@@ -8,14 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.cekongkir.R
-import app.cekongkir.kotlin.remote.Resource
+import app.cekongkir.kotlin.network.Resource
 import app.cekongkir.kotlin.ui.city.CityActivity
-import app.cekongkir.kotlin.ui.city.CityFragment
-import app.cekongkir.kotlin.ui.home.HomeActivity
-import app.cekongkir.kotlin.ui.waybill.WaybillFragment
+import app.cekongkir.kotlin.utils.*
 import kotlinx.android.synthetic.main.fragment_cost.*
 import kotlinx.android.synthetic.main.fragment_cost.view.*
 
@@ -44,6 +41,8 @@ class CostFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         loadingCost( false )
+        edit_origin.setText( "$originCityName$originSubdistricName" )
+        edit_destination.setText( "$destinationCityName$destinationSubdistricName" )
     }
 
     private fun setupRecyclerView(){
@@ -56,17 +55,26 @@ class CostFragment : Fragment() {
 
     private fun setupListener(){
         fragmentView.edit_origin.setOnClickListener {
-            startActivity(Intent(requireActivity(), CityActivity::class.java))
+            costType = "origin"
+            startActivity( Intent(requireActivity(), CityActivity::class.java) )
+        }
+        fragmentView.edit_destination.setOnClickListener {
+            costType = "destination"
+            startActivity( Intent(requireActivity(), CityActivity::class.java) )
         }
         fragmentView.button_cost.setOnClickListener {
-            viewModel.fetchCost(
-                    origin = "501",
-                    originType = "city",
-                    destination = "574 ",
-                    destinationType = "subdistrict",
-                    weight = "1000",
-                    courier = "sicepat:jnt:pos"
-            )
+            if (edit_origin.text.isNullOrEmpty() || edit_destination.text.isNullOrEmpty()) {
+                showToast("Lengkapi data pencarian")
+            } else {
+                viewModel.fetchCost(
+                        origin = originSubdistricId!!,
+                        originType = "subdistrict",
+                        destination = destinationSubdistricId!!,
+                        destinationType = "subdistrict",
+                        weight = "1000",
+                        courier = "sicepat:jnt:pos"
+                )
+            }
         }
     }
 

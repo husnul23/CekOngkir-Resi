@@ -5,11 +5,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import app.cekongkir.R
-import app.cekongkir.kotlin.remote.responses.CityResponse
+import app.cekongkir.kotlin.network.responses.CityResponse
 import kotlinx.android.synthetic.main.adapter_subdistrict.view.*
 
-class CityAdapter (var results: ArrayList<CityResponse.Result>, var listener: OnAdapterListener):
+// TODO filter still error
+
+class CityAdapter (var results: ArrayList<CityResponse.Rajaongkir.Result>, var listener: OnAdapterListener):
         RecyclerView.Adapter<CityAdapter.ViewHolder>(){
+
+    private var resultsFiltered: List<CityResponse.Rajaongkir.Result>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             ViewHolder(
@@ -31,13 +35,13 @@ class CityAdapter (var results: ArrayList<CityResponse.Result>, var listener: On
 
     class ViewHolder(val view: View): RecyclerView.ViewHolder(view)
 
-    fun setData(data: List<CityResponse.Result>) {
+    fun setData(data: List<CityResponse.Rajaongkir.Result>) {
         results.clear()
         results.addAll(data)
         notifyDataSetChanged()
     }
 
     interface OnAdapterListener {
-        fun onClick(result: CityResponse.Result)
+        fun onClick(result: CityResponse.Rajaongkir.Result)
     }
 }

@@ -5,12 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import app.cekongkir.R
-import app.cekongkir.kotlin.remote.responses.CostResponse
+import app.cekongkir.kotlin.network.responses.CostResponse
 import kotlinx.android.synthetic.main.adapter_service.view.*
 
 class ServiceAdapter (var costs: List<CostResponse.Rajaongkir.Result.Cost>):
         RecyclerView.Adapter<ServiceAdapter.ViewHolder>(){
-    private val TAG = "CostAdapter"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             ViewHolder(

@@ -188,9 +188,9 @@ public class SummaryActivity extends AppCompatActivity {
     }
 
     private void ListAdapter(){
-        SimpleAdapter simpleAdapter = new SimpleAdapter(context, lists, R.layout.adapter_manifest,
+        SimpleAdapter simpleAdapter = new SimpleAdapter(context, lists, R.layout.adapter_tracking,
                 new String[] { "manifest_description", "manifest_date"},
-                new int[] {R.id.txtManifest_description, R.id.txtManifest_date});
+                new int[] {R.id.text_description, R.id.text_date});
 
         lst_result.setAdapter(simpleAdapter);
 

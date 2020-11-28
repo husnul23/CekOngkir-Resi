@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import app.cekongkir.R
-import app.cekongkir.kotlin.remote.responses.CostResponse
+import app.cekongkir.kotlin.network.responses.CostResponse
 import kotlinx.android.synthetic.main.adapter_cost.view.*
 
 class CostAdapter (var results: ArrayList<CostResponse.Rajaongkir.Result>):

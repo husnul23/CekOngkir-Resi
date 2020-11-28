@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/subdistrictFragment"
-        android:name="app.cekongkir.kotlin.ui.city.SubdistrictFragment"
+        android:name="app.cekongkir.kotlin.ui.subdistrict.SubdistrictFragment"
         android:label="fragment_subdistrict"
         tools:layout="@layout/fragment_subdistrict" />
 </navigation>

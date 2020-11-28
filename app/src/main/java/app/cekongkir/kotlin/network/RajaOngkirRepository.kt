@@ -1,8 +1,7 @@
-package app.cekongkir.kotlin.remote
+package app.cekongkir.kotlin.network
 
 import app.cekongkir.kotlin.database.persistence.CekOngkirDatabase
-import app.cekongkir.kotlin.remote.RajaOngkirEndpoint
-import retrofit2.http.Field
+import app.cekongkir.kotlin.database.persistence.WaybillEntity
 
 class RajaOngkirRepository (
         private val api: RajaOngkirEndpoint,
@@ -19,4 +18,10 @@ class RajaOngkirRepository (
 
     suspend fun fetchWaybill(waybill: String, courier: String)
             = api.waybill(waybill, courier)
+
+    suspend fun saveWaybill( waybillEntity: WaybillEntity ) {
+        db.waybillDao().insert( waybillEntity )
+    }
+
+    fun getWaybill() = db.waybillDao().select()
 }

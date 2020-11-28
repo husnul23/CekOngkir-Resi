@@ -3,13 +3,13 @@ package app.cekongkir.kotlin.ui.city
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.cekongkir.kotlin.remote.Resource
-import app.cekongkir.kotlin.remote.responses.CityResponse
-import app.cekongkir.kotlin.remote.responses.CostResponse
-import app.cekongkir.kotlin.remote.RajaOngkirRepository
-import app.cekongkir.kotlin.remote.responses.SubdistrictResponse
+import app.cekongkir.kotlin.network.Resource
+import app.cekongkir.kotlin.network.responses.CityResponse
+import app.cekongkir.kotlin.network.RajaOngkirRepository
+import app.cekongkir.kotlin.network.responses.SubdistrictResponse
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.io.IOException
 
 class CityViewModel(
     private val repository: RajaOngkirRepository
@@ -19,18 +19,15 @@ class CityViewModel(
     val subdistrictResponse: MutableLiveData<Resource<SubdistrictResponse>> = MutableLiveData()
 
     fun fetchCity() = viewModelScope.launch {
-        cityResponse.postValue(Resource.Loading())
-        val response = repository.fetchCity()
-        cityResponse.postValue(handleCityResponse(response))
-    }
-
-    private fun handleCityResponse(response: Response<CityResponse>) : Resource<CityResponse> {
-        if (response.isSuccessful) {
-            response.body()?.let {
-                return Resource.Success(it)
-            }
+        try {
+            cityResponse.postValue(Resource.Loading())
+            val response = repository.fetchCity()
+            cityResponse.postValue(Resource.Success(response.body()!!))
+        } catch (e: IOException) {
+            cityResponse.postValue(Resource.Error(e.message.toString()))
+        } catch (e: Throwable) {
+            cityResponse.postValue(Resource.Error(e.message.toString()))
         }
-        return Resource.Error(response.message())
     }
 
     fun fetchSubdistrict(city: String) = viewModelScope.launch {

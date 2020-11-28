@@ -1,13 +1,13 @@
-package app.cekongkir.kotlin.remote
+package app.cekongkir.kotlin.network
 
-import app.cekongkir.kotlin.database.Constant
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-const val BASE_URL = "https://pro.rajaongkir.com/api/"
+const val baseUrl = "https://pro.rajaongkir.com/api/"
+const val apiKey = "3956ee2b19e6005fa6cf8512adc7f70b"
 
 object ApiService {
 
@@ -20,22 +20,20 @@ object ApiService {
             .addInterceptor(logging)
             .addInterceptor { chain ->
                 val request = chain.request().newBuilder()
-                    .addHeader("key", Constant.apiKey ).build()
+                    .addHeader("key", apiKey ).build()
                 chain.proceed(request)
             }
             .build()
 
-        val gson = GsonBuilder()
-            .setLenient()
-            .create()
+        val gson = GsonBuilder().serializeNulls().create()
+
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl( baseUrl )
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
             .build()
             .create(RajaOngkirEndpoint::class.java)
 
     }
-
 
 }

@@ -1,4 +1,4 @@
-package app.cekongkir.kotlin.ui.city
+package app.cekongkir.kotlin.ui.subdistrict
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,18 +9,21 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.cekongkir.R
-import app.cekongkir.kotlin.remote.Resource
-import app.cekongkir.kotlin.remote.responses.SubdistrictResponse
-import app.cekongkir.kotlin.toast
+import app.cekongkir.kotlin.network.Resource
+import app.cekongkir.kotlin.network.responses.SubdistrictResponse
+import app.cekongkir.kotlin.ui.city.CityActivity
+import app.cekongkir.kotlin.ui.city.CityViewModel
+import app.cekongkir.kotlin.utils.*
+import kotlinx.android.synthetic.main.fragment_subdistrict.*
 import kotlinx.android.synthetic.main.fragment_subdistrict.view.*
 
 class SubdistrictFragment : Fragment() {
 
     private lateinit var fragmentView: View
     private lateinit var subdistrictAdapter: SubdistrictAdapter
-    private val viewModel by lazy {
-        ViewModelProvider(requireActivity()).get(CityViewModel::class.java)
-    }
+    private val viewModel by lazy { ViewModelProvider(requireActivity()).get(CityViewModel::class.java) }
+    private val cityId by lazy { requireArguments().getString("city_id")!! }
+    private val cityName by lazy { requireArguments().getString("city_name")!! }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -32,22 +35,34 @@ class SubdistrictFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupView()
         setupRecyclerView()
+        setupListener()
         setupObserver()
     }
 
     override fun onStart() {
         super.onStart()
-        viewModel.fetchSubdistrict( requireArguments().getString("city")!! )
+        viewModel.fetchSubdistrict( cityId )
     }
 
     private fun setupView(){
-        (requireActivity() as CityActivity)
-                .supportActionBar!!.title = "Pilih Kecamatan"
+        (requireActivity() as CityActivity).supportActionBar!!.title = "Pilih Kecamatan"
     }
 
     private fun setupRecyclerView(){
         subdistrictAdapter = SubdistrictAdapter(arrayListOf(), object : SubdistrictAdapter.OnAdapterListener {
-            override fun onClick(result: SubdistrictResponse.Result) {
+            override fun onClick(result: SubdistrictResponse.Rajaongkir.Result) {
+                when (costType) {
+                    "origin" -> {
+                        originCityName = "$cityName, "
+                        originSubdistricId = result.subdistrict_id
+                        originSubdistricName = result.subdistrict_name
+                    }
+                    "destination" -> {
+                        destinationCityName = "$cityName, "
+                        destinationSubdistricId = result.subdistrict_id
+                        destinationSubdistricName = result.subdistrict_name
+                    }
+                }
                 requireActivity().finish()
             }
         })
@@ -57,17 +72,25 @@ class SubdistrictFragment : Fragment() {
         }
     }
 
+    private fun setupListener(){
+        refresh_subdistrict.setOnRefreshListener {
+            viewModel.fetchSubdistrict( cityId )
+        }
+    }
+
     private fun setupObserver(){
         viewModel.subdistrictResponse.observe(viewLifecycleOwner, Observer {
             when(it) {
                 is Resource.Loading -> {
-                    requireActivity().toast(resources.getString(R.string.message_loading))
+                    refresh_subdistrict.swipeShow()
                 }
                 is Resource.Success -> {
+                    refresh_subdistrict.swipeHide()
                     subdistrictAdapter.setData( it.data!!.rajaongkir.results )
                 }
                 is Resource.Error -> {
-                    requireActivity().toast(resources.getString(R.string.message_error))
+                    refresh_subdistrict.swipeHide()
+                    requireActivity().showToast(resources.getString(R.string.message_error))
                 }
             }
         })

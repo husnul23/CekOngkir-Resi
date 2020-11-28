@@ -3,7 +3,7 @@ package app.cekongkir.kotlin.database
 import android.content.Context
 import android.content.SharedPreferences
 
-const val pref_name = "CekOngkirLazday.pref"
+private const val pref_name = "CekOngkirLazday.pref"
 
 class CekOngkirPreference (context: Context) {
 

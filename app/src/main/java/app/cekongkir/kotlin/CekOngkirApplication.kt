@@ -3,12 +3,12 @@ package app.cekongkir.kotlin
 import android.app.Application
 import app.cekongkir.kotlin.database.CekOngkirPreference
 import app.cekongkir.kotlin.database.persistence.CekOngkirDatabase
-import app.cekongkir.kotlin.remote.ApiService
-import app.cekongkir.kotlin.remote.RajaOngkirEndpoint
-import app.cekongkir.kotlin.remote.RajaOngkirRepository
+import app.cekongkir.kotlin.network.ApiService
+import app.cekongkir.kotlin.network.RajaOngkirEndpoint
+import app.cekongkir.kotlin.network.RajaOngkirRepository
 import app.cekongkir.kotlin.ui.city.CityViewModelFactory
 import app.cekongkir.kotlin.ui.cost.CostViewModelFactory
-import app.cekongkir.kotlin.ui.waybill.WaybillViewModelFactory
+import app.cekongkir.kotlin.ui.tracking.WaybillViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
