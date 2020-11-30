@@ -45,4 +45,8 @@ class CityViewModel(
         return Resource.Error(response.message())
     }
 
+    fun saveCostPreferences (type: String, cityName: String, subdistricName: String, subdistricId: String) {
+        repository.saveCostPreferences( type, cityName, subdistricName, subdistricId )
+    }
+
 }

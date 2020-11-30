@@ -30,8 +30,8 @@ class HomeActivity : AppCompatActivity(), KodeinAware {
     private fun setupTab(){
         val tabTitles = arrayOf("CEK ONGKIR", "CEK RESI")
         val tabAdapter = HomeTabAdapter(supportFragmentManager, lifecycle)
-        viewPager.adapter = tabAdapter
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+        view_pager.adapter = tabAdapter
+        TabLayoutMediator(tab_layout, view_pager) { tab, position ->
             tab.text = tabTitles[position]
         }.attach()
     }

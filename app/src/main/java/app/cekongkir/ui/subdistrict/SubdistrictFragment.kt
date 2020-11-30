@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.cekongkir.R
+import app.cekongkir.database.preferences.*
 import app.cekongkir.network.Resource
 import app.cekongkir.network.responses.SubdistrictResponse
 import app.cekongkir.ui.city.CityActivity
@@ -22,6 +23,7 @@ class SubdistrictFragment : Fragment() {
     private lateinit var fragmentView: View
     private lateinit var subdistrictAdapter: SubdistrictAdapter
     private val viewModel by lazy { ViewModelProvider(requireActivity()).get(CityViewModel::class.java) }
+    private val costType by lazy { requireActivity().intent.getStringExtra(intentCostType)!! }
     private val cityId by lazy { requireArguments().getString("city_id")!! }
     private val cityName by lazy { requireArguments().getString("city_name")!! }
 
@@ -51,18 +53,12 @@ class SubdistrictFragment : Fragment() {
     private fun setupRecyclerView(){
         subdistrictAdapter = SubdistrictAdapter(arrayListOf(), object : SubdistrictAdapter.OnAdapterListener {
             override fun onClick(result: SubdistrictResponse.Rajaongkir.Result) {
-                when (costType) {
-                    "origin" -> {
-                        originCityName = "$cityName, "
-                        originSubdistricId = result.subdistrict_id
-                        originSubdistricName = result.subdistrict_name
-                    }
-                    "destination" -> {
-                        destinationCityName = "$cityName, "
-                        destinationSubdistricId = result.subdistrict_id
-                        destinationSubdistricName = result.subdistrict_name
-                    }
-                }
+                viewModel.saveCostPreferences(
+                        type = costType,
+                        cityName = cityName,
+                        subdistricName = result.subdistrict_name,
+                        subdistricId = result.subdistrict_id,
+                )
                 requireActivity().finish()
             }
         })

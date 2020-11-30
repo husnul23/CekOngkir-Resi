@@ -66,13 +66,12 @@ class CityFragment : Fragment() {
     private fun setupRecyclerView(){
         cityAdapter = CityAdapter(arrayListOf(), object : CityAdapter.OnAdapterListener {
             override fun onClick(result: CityResponse.Rajaongkir.Result) {
-                val bundle = bundleOf(
-                        "city_id" to result.city_id,
-                        "city_name" to result.city_name
-                )
                 findNavController().navigate(
                         R.id.action_cityFragment_to_subdistrictFragment,
-                        bundle
+                        bundleOf(
+                                "city_id" to result.city_id,
+                                "city_name" to result.city_name
+                        )
                 )
             }
         })

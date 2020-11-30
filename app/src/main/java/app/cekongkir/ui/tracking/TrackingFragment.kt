@@ -53,11 +53,11 @@ class TrackingFragment : Fragment() {
 
             if (waybill.isNotEmpty() && courier.isNotEmpty() ) {
                 findNavController().navigate(
-                        R.id.action_waybillFragment_to_waybillDetailFragment,
+                        R.id.action_trackingFragment_to_trackingResultFragment,
                         bundleOf( "waybill" to waybill, "courier" to courier )
                 )
             } else {
-                showToast("Lengkapi no. resi dan kurir")
+                showToast("Lengkapi No. Resi dan Kurir")
             }
         }
     }

@@ -1,9 +1,9 @@
-package app.cekongkir.database
+package app.cekongkir.database.preferences
 
 import android.content.Context
 import android.content.SharedPreferences
 
-private const val pref_name = "CekOngkirLazday.pref"
+private const val prefName = "CekOngkirLazday.pref"
 
 class CekOngkirPreference (context: Context) {
 
@@ -11,7 +11,7 @@ class CekOngkirPreference (context: Context) {
     val editor: SharedPreferences.Editor
 
     init {
-        sharedPref = context.getSharedPreferences(pref_name, Context.MODE_PRIVATE)
+        sharedPref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE)
         editor = sharedPref.edit()
     }
 
@@ -20,17 +20,7 @@ class CekOngkirPreference (context: Context) {
                 .apply()
     }
 
-    fun put(key: String, value: Boolean) {
-        editor.putBoolean(key, value)
-                .apply()
-    }
-
     fun getString(key: String): String? {
         return sharedPref.getString(key, null)
-    }
-
-    fun clear() {
-        editor.clear()
-                .apply()
     }
 }
