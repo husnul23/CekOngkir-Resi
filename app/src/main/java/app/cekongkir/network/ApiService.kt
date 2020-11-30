@@ -6,8 +6,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-const val baseUrl = "https://pro.rajaongkir.com/api/"
-const val apiKey = "3956ee2b19e6005fa6cf8512adc7f70b"
+private const val baseUrl = "https://pro.rajaongkir.com/api/"
+private const val apiKey = "3956ee2b19e6005fa6cf8512adc7f70b"
 
 object ApiService {
 

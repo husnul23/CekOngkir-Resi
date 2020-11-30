@@ -1,6 +1,5 @@
 package app.cekongkir.ui.city
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,17 +8,17 @@ import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import app.cekongkir.R
 import app.cekongkir.network.responses.CityResponse
-import kotlinx.android.synthetic.main.adapter_subdistrict.view.*
+import kotlinx.android.synthetic.main.adapter_city.view.*
 import timber.log.Timber
 import kotlin.collections.ArrayList
 
-// TODO filter still error
-
-class CityAdapter (var cities: ArrayList<CityResponse.Rajaongkir.Result>, var listener: OnAdapterListener):
+class CityAdapter (
+        var cities: ArrayList<CityResponse.Rajaongkir.Result>,
+        var listener: OnAdapterListener
+):
         RecyclerView.Adapter<CityAdapter.ViewHolder>(), Filterable{
 
     private var citiesFilter = ArrayList<CityResponse.Rajaongkir.Result>()
-    private lateinit var context: Context
 
     init {
         citiesFilter = cities
@@ -28,7 +27,7 @@ class CityAdapter (var cities: ArrayList<CityResponse.Rajaongkir.Result>, var li
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             ViewHolder(
                     LayoutInflater.from(parent.context).inflate(
-                            R.layout.adapter_subdistrict, parent, false
+                            R.layout.adapter_city, parent, false
                     )
             )
 

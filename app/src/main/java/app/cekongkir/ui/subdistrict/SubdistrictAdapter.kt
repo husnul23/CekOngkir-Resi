@@ -8,11 +8,13 @@ import app.cekongkir.R
 import app.cekongkir.network.responses.SubdistrictResponse
 import kotlinx.android.synthetic.main.adapter_subdistrict.view.*
 
-class SubdistrictAdapter (var results: ArrayList<SubdistrictResponse.Rajaongkir.Result>, var listener: OnAdapterListener):
-        RecyclerView.Adapter<SubdistrictAdapter.ViewHolder>(){
+class SubdistrictAdapter (
+        var results: ArrayList<SubdistrictResponse.Rajaongkir.Result>,
+        var listener: OnAdapterListener
+): RecyclerView.Adapter<SubdistrictAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            ViewHolder(
+            ViewHolder (
                     LayoutInflater.from(parent.context).inflate(
                             R.layout.adapter_subdistrict, parent, false
                     )
@@ -26,7 +28,6 @@ class SubdistrictAdapter (var results: ArrayList<SubdistrictResponse.Rajaongkir.
         holder.view.text_name.setOnClickListener {
             listener.onClick(result)
         }
-
     }
 
     class ViewHolder(val view: View): RecyclerView.ViewHolder(view){

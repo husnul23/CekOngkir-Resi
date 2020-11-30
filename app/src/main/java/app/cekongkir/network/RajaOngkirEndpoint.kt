@@ -1,6 +1,5 @@
 package app.cekongkir.network
 
-import app.cekongkir.network.responses.*
 import app.cekongkir.network.responses.CityResponse
 import app.cekongkir.network.responses.CostResponse
 import app.cekongkir.network.responses.SubdistrictResponse
