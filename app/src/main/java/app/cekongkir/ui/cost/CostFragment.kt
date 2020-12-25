@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.cekongkir.R
@@ -16,15 +15,12 @@ import app.cekongkir.ui.city.CityActivity
 import app.cekongkir.utils.*
 import kotlinx.android.synthetic.main.fragment_cost.*
 import kotlinx.android.synthetic.main.fragment_cost.view.*
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.x.closestKodein
-import org.kodein.di.generic.instance
 import timber.log.Timber
 
-class CostFragment : Fragment() , KodeinAware {
+// TODO pref now showing at UI
 
-    override val kodein by closestKodein()
-    private val pref: CekOngkirPreference by instance()
+class CostFragment : Fragment(){
+
     private val viewModel by lazy {
         ViewModelProvider(requireActivity()).get(CostViewModel::class.java)
     }
@@ -51,8 +47,7 @@ class CostFragment : Fragment() , KodeinAware {
     override fun onStart() {
         super.onStart()
         loadingCost( false )
-        setupPreferences()
-        Timber.d("setupPreferences")
+        viewModel.getPreferences()
     }
 
     private fun setupRecyclerView(){
@@ -64,16 +59,16 @@ class CostFragment : Fragment() , KodeinAware {
     }
 
     private fun setupListener(){
-        fragmentView.edit_origin.setOnClickListener {
+        edit_origin.setOnClickListener {
             startActivity(
                     Intent(requireActivity(), CityActivity::class.java)
-                            .putExtra( intentCostType, "origin")
+                            .putExtra( "intent_type", "origin")
             )
         }
         fragmentView.edit_destination.setOnClickListener {
             startActivity(
                     Intent(requireActivity(), CityActivity::class.java)
-                            .putExtra( intentCostType, "destination")
+                            .putExtra( "intent_type", "destination")
             )
         }
         fragmentView.button_cost.setOnClickListener {
@@ -92,17 +87,6 @@ class CostFragment : Fragment() , KodeinAware {
         }
     }
 
-    private fun setupPreferences(){
-        pref.getString(prefOriginCityName)?.let {
-            edit_origin.setText( "$it, ${pref.getString(prefOriginSubdistricName)}" )
-            originSubdistricId = pref.getString(prefOriginSubdistricId)
-        }
-        pref.getString(prefDestinationCityName)?.let {
-            edit_destination.setText( "$it, ${pref.getString(prefDestinationSubdistricName)}" )
-            destinationSubdistricId = pref.getString(prefDestinationSubdistricId)
-        }
-    }
-
     private fun loadingCost(loading: Boolean) {
         when (loading) {
             true -> {
@@ -115,7 +99,22 @@ class CostFragment : Fragment() , KodeinAware {
     }
 
     private fun setupObserver(){
-        viewModel.costResponse.observe( viewLifecycleOwner, Observer {
+        viewModel.preferences.observe(viewLifecycleOwner, { preferencesList ->
+            preferencesList.forEach {
+                Timber.d("preferencesList: $it")
+                when (it.type) {
+                    "origin" -> {
+                        originSubdistricId = it.id
+                        edit_origin.setText( it.name )
+                    }
+                    "destination" -> {
+                        destinationSubdistricId = it.id
+                        edit_destination.setText( it.name )
+                    }
+                }
+            }
+        })
+        viewModel.costResponse.observe( viewLifecycleOwner, {
             when (it) {
                 is Resource.Loading -> {
                     fragmentView.progress_cost.visibility = View.VISIBLE

@@ -10,7 +10,7 @@ import app.cekongkir.ui.waybill.WaybillFragment
 class HomeTabAdapter (fragmentManager: FragmentManager, lifecycle: Lifecycle) :
         FragmentStateAdapter(fragmentManager, lifecycle) {
 
-    val fragments:ArrayList<Fragment> = arrayListOf(
+    private val fragments:ArrayList<Fragment> = arrayListOf(
             CostFragment(),
             WaybillFragment()
     )

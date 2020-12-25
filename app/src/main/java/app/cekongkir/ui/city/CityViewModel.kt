@@ -9,44 +9,46 @@ import app.cekongkir.network.RajaOngkirRepository
 import app.cekongkir.network.responses.SubdistrictResponse
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import timber.log.Timber
 import java.io.IOException
 
 class CityViewModel(
     private val repository: RajaOngkirRepository
 ) : ViewModel() {
 
+    val titleBar = MutableLiveData("")
+
     val cityResponse: MutableLiveData<Resource<CityResponse>> = MutableLiveData()
     val subdistrictResponse: MutableLiveData<Resource<SubdistrictResponse>> = MutableLiveData()
+
+    init {
+        fetchCity()
+    }
 
     fun fetchCity() = viewModelScope.launch {
         try {
             cityResponse.postValue(Resource.Loading())
             val response = repository.fetchCity()
             cityResponse.postValue(Resource.Success(response.body()!!))
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             cityResponse.postValue(Resource.Error(e.message.toString()))
-        } catch (e: Throwable) {
-            cityResponse.postValue(Resource.Error(e.message.toString()))
+            Timber.e(e)
         }
     }
 
     fun fetchSubdistrict(city: String) = viewModelScope.launch {
-        subdistrictResponse.postValue(Resource.Loading())
-        val response = repository.fetchSubdistrict(city)
-        subdistrictResponse.postValue(handleSubdistrictResponse(response))
-    }
-
-    private fun handleSubdistrictResponse(response: Response<SubdistrictResponse>) : Resource<SubdistrictResponse> {
-        if (response.isSuccessful) {
-            response.body()?.let {
-                return Resource.Success(it)
-            }
+        try {
+            subdistrictResponse.value = Resource.Loading()
+            val response = repository.fetchSubdistrict(city)
+            subdistrictResponse.value = Resource.Success(response.body()!!)
+        } catch (e: Exception) {
+            subdistrictResponse.value = Resource.Error(e.message.toString())
+            Timber.e(e)
         }
-        return Resource.Error(response.message())
     }
 
-    fun saveCostPreferences (type: String, cityName: String, subdistricName: String, subdistricId: String) {
-        repository.saveCostPreferences( type, cityName, subdistricName, subdistricId )
+    fun savePreferences (type: String, id: String, name: String) {
+        repository.savePreferences( type, id, name )
     }
 
 }

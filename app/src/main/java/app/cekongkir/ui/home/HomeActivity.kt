@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
+import timber.log.Timber
 
 class HomeActivity : AppCompatActivity(), KodeinAware {
 

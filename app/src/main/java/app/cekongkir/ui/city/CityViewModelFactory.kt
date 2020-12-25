@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import app.cekongkir.network.RajaOngkirRepository
 
 class CityViewModelFactory(
-    val repository: RajaOngkirRepository
+    private val repository: RajaOngkirRepository
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

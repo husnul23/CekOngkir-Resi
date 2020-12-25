@@ -1,7 +1,6 @@
 package app.cekongkir.ui.city
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,20 +41,13 @@ class CityFragment : Fragment() {
         setupObserver()
     }
 
-    override fun onStart() {
-        super.onStart()
-        viewModel.fetchCity()
-    }
-
     private fun setupView(){
-        (requireActivity() as CityActivity)
-                .supportActionBar!!.title = "Pilih Kota"
+        viewModel.titleBar.postValue("Pilih Kota")
         fragmentView.edit_search.isEnabled = false
     }
 
     private fun setupListener(){
         fragmentView.edit_search.doAfterTextChanged {
-            Log.d("CityFragment", "doAfterTextChanged: ${it.toString()}")
             cityAdapter.filter.filter( it.toString() )
         }
         refresh_city.setOnRefreshListener {

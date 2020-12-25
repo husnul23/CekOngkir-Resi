@@ -14,16 +14,18 @@ import app.cekongkir.network.Resource
 import app.cekongkir.network.responses.SubdistrictResponse
 import app.cekongkir.ui.city.CityActivity
 import app.cekongkir.ui.city.CityViewModel
+import app.cekongkir.ui.cost.CostViewModel
 import app.cekongkir.utils.*
 import kotlinx.android.synthetic.main.fragment_subdistrict.*
 import kotlinx.android.synthetic.main.fragment_subdistrict.view.*
+import timber.log.Timber
 
 class SubdistrictFragment : Fragment() {
 
     private lateinit var fragmentView: View
     private lateinit var subdistrictAdapter: SubdistrictAdapter
     private val viewModel by lazy { ViewModelProvider(requireActivity()).get(CityViewModel::class.java) }
-    private val costType by lazy { requireActivity().intent.getStringExtra(intentCostType)!! }
+    private val type by lazy { requireActivity().intent.getStringExtra( "intent_type" )!! }
     private val cityId by lazy { requireArguments().getString("city_id")!! }
     private val cityName by lazy { requireArguments().getString("city_name")!! }
 
@@ -47,17 +49,16 @@ class SubdistrictFragment : Fragment() {
     }
 
     private fun setupView(){
-        (requireActivity() as CityActivity).supportActionBar!!.title = "Pilih Kecamatan"
+        viewModel.titleBar.postValue("Pilih Kecamatan")
     }
 
     private fun setupRecyclerView(){
         subdistrictAdapter = SubdistrictAdapter(arrayListOf(), object : SubdistrictAdapter.OnAdapterListener {
             override fun onClick(result: SubdistrictResponse.Rajaongkir.Result) {
-                viewModel.saveCostPreferences(
-                        type = costType,
-                        cityName = cityName,
-                        subdistricName = result.subdistrict_name,
-                        subdistricId = result.subdistrict_id,
+                viewModel.savePreferences(
+                        type = type,
+                        id = result.subdistrict_id,
+                        name = "$cityName, ${result.subdistrict_name}"
                 )
                 requireActivity().finish()
             }
