@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.cekongkir.R
 import app.cekongkir.databinding.FragmentSubdistrictBinding
@@ -17,7 +18,9 @@ import app.cekongkir.utils.*
 
 class SubdistrictFragment : Fragment() {
 
-    private val viewModel by lazy { ViewModelProvider(requireActivity()).get(CityViewModel::class.java) }
+    private val viewModel by lazy {
+        ViewModelProvider(requireActivity()).get(CityViewModel::class.java)
+    }
     private lateinit var binding: FragmentSubdistrictBinding
     private lateinit var subdistrictAdapter: SubdistrictAdapter
     private val type by lazy { requireActivity().intent.getStringExtra( "intent_type" )!! }
@@ -59,7 +62,7 @@ class SubdistrictFragment : Fragment() {
             }
         })
         binding.listSubdistrict.apply {
-            layoutManager = LinearLayoutManager(requireContext())
+            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
             adapter = subdistrictAdapter
         }
     }

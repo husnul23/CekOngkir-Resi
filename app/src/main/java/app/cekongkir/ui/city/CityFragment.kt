@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import app.cekongkir.R
 import app.cekongkir.databinding.FragmentCityBinding
 import app.cekongkir.network.Resource
@@ -20,8 +22,10 @@ import app.cekongkir.utils.swipeShow
 
 class CityFragment : Fragment() {
 
+    private val viewModel by lazy {
+        ViewModelProvider(requireActivity()).get(CityViewModel::class.java)
+    }
     private lateinit var binding: FragmentCityBinding
-    private val viewModel by lazy { ViewModelProvider(requireActivity()).get(CityViewModel::class.java) }
     private lateinit var cityAdapter: CityAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -64,11 +68,14 @@ class CityFragment : Fragment() {
                 )
             }
         })
-        binding.listCity.adapter = cityAdapter
+        binding.listCity.apply {
+            addItemDecoration(DividerItemDecoration(requireActivity(), LinearLayoutManager.VERTICAL))
+            adapter = cityAdapter
+        }
     }
 
     private fun setupObserver(){
-        viewModel.cityResponse.observe(viewLifecycleOwner, Observer {
+        viewModel.cityResponse.observe(viewLifecycleOwner, {
             when (it) {
                 is Resource.Loading -> {
                     binding.refreshCity.swipeShow()
