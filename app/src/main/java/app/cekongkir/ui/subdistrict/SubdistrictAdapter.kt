@@ -12,7 +12,9 @@ class SubdistrictAdapter (
 ): RecyclerView.Adapter<SubdistrictAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder (
-            AdapterSubdistrictBinding.inflate( LayoutInflater.from(parent.context), parent, false )
+            AdapterSubdistrictBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+            )
     )
 
     override fun getItemCount() = results.size

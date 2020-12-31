@@ -6,10 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorWhite"
-    android:layout_marginBottom="1dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="10dp"
     >
+
     <TextView
         android:id="@+id/text_code"
         android:layout_width="wrap_content"
@@ -35,6 +35,7 @@
         android:id="@+id/list_service"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/adapter_service"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_code"

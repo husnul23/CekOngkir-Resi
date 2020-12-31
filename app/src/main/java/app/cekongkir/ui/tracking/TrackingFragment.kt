@@ -56,11 +56,7 @@ class TrackingFragment : Fragment() {
                         R.id.action_trackingFragment_to_trackingResultFragment,
                         bundleOf( "waybill" to waybill, "courier" to courier )
                 )
-            } else {
-                showToast("Lengkapi No. Resi dan Kurir")
-            }
+            } else showToast("Lengkapi No. Resi dan Kurir")
         }
     }
-
-
 }

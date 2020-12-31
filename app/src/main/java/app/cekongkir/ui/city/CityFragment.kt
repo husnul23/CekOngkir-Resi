@@ -77,9 +77,7 @@ class CityFragment : Fragment() {
     private fun setupObserver(){
         viewModel.cityResponse.observe(viewLifecycleOwner, {
             when (it) {
-                is Resource.Loading -> {
-                    binding.refreshCity.swipeShow()
-                }
+                is Resource.Loading -> binding.refreshCity.swipeShow()
                 is Resource.Success -> {
                     binding.refreshCity.swipeHide()
                     cityAdapter.setData(it.data!!.rajaongkir.results)

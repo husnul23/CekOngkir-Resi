@@ -13,8 +13,7 @@ import kotlin.collections.ArrayList
 class CityAdapter (
         var cities: ArrayList<CityResponse.Rajaongkir.Result>,
         var listener: OnAdapterListener
-):
-        RecyclerView.Adapter<CityAdapter.ViewHolder>(), Filterable{
+): RecyclerView.Adapter<CityAdapter.ViewHolder>(), Filterable {
 
     private var citiesFilter = ArrayList<CityResponse.Rajaongkir.Result>()
 
@@ -23,7 +22,9 @@ class CityAdapter (
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder (
-            AdapterCityBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            AdapterCityBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+            )
     )
 
     override fun getItemCount() = citiesFilter.size

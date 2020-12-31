@@ -15,7 +15,9 @@ import app.cekongkir.utils.swipeShow
 
 class TrackingResultFragment : Fragment() {
 
-    private val viewModel by lazy { ViewModelProvider(requireActivity()).get(WaybillViewModel::class.java) }
+    private val viewModel by lazy {
+        ViewModelProvider(requireActivity()).get(WaybillViewModel::class.java)
+    }
     private lateinit var binding: FragmentTrackingResultBinding
     private val waybill by lazy { requireArguments().getString("waybill")!! }
     private val courier by lazy { requireArguments().getString("courier")!! }
@@ -53,9 +55,8 @@ class TrackingResultFragment : Fragment() {
     private fun setupObserver(){
         viewModel.waybillResponse.observe(viewLifecycleOwner, Observer {
             when (it) {
-                is Resource.Loading -> {
-                    binding.refreshWaybill.swipeShow()
-                }
+                is Resource.Loading -> binding.refreshWaybill.swipeShow()
+                is Resource.Error -> binding.refreshWaybill.swipeHide()
                 is Resource.Success -> {
                     binding.refreshWaybill.swipeHide()
                     val data = it.data!!.rajaongkir.result
@@ -63,9 +64,6 @@ class TrackingResultFragment : Fragment() {
                     binding.textReceiver.text = data.delivery_status.pod_receiver
                     binding.textDate.text = "${data.delivery_status.pod_date} ${data.delivery_status.pod_time}"
                     manifestAdapter.setData( data.manifest )
-                }
-                is Resource.Error -> {
-                    binding.refreshWaybill.swipeHide()
                 }
             }
         })

@@ -7,9 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import app.cekongkir.R
-import app.cekongkir.database.preferences.*
 import app.cekongkir.databinding.FragmentCostBinding
 import app.cekongkir.network.Resource
 import app.cekongkir.ui.city.CityActivity
@@ -18,8 +15,9 @@ import timber.log.Timber
 
 class CostFragment : Fragment(){
 
-    private val viewModel by lazy { ViewModelProvider(requireActivity()).get(CostViewModel::class.java) }
-    private lateinit var fragmentView: View
+    private val viewModel by lazy {
+        ViewModelProvider(requireActivity()).get(CostViewModel::class.java)
+    }
     private lateinit var binding: FragmentCostBinding
     private lateinit var costAdapter: CostAdapter
 
@@ -47,10 +45,7 @@ class CostFragment : Fragment(){
 
     private fun setupRecyclerView(){
         costAdapter = CostAdapter(arrayListOf())
-        binding.listCost.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = costAdapter
-        }
+        binding.listCost.adapter = costAdapter
     }
 
     private fun setupListener(){
@@ -83,14 +78,8 @@ class CostFragment : Fragment(){
     }
 
     private fun loadingCost(loading: Boolean) {
-        when (loading) {
-            true -> {
-                binding.progressCost.visibility = View.VISIBLE
-            }
-            false -> {
-                binding.progressCost.visibility = View.GONE
-            }
-        }
+        if (loading) binding.progressCost.viewShow()
+        else binding.progressCost.viewHide()
     }
 
     private fun setupObserver(){
@@ -112,14 +101,14 @@ class CostFragment : Fragment(){
         viewModel.costResponse.observe( viewLifecycleOwner, {
             when (it) {
                 is Resource.Loading -> {
-                    binding.progressCost.visibility = View.VISIBLE
+                    binding.progressCost.viewShow()
                 }
                 is Resource.Success -> {
-                    binding.progressCost.visibility = View.GONE
+                    binding.progressCost.viewHide()
                     costAdapter.setData( it.data!!.rajaongkir.results )
                 }
                 is Resource.Error -> {
-                    binding.progressCost.visibility = View.GONE
+                    binding.progressCost.viewHide()
                 }
             }
         })

@@ -10,7 +10,9 @@ class WaybillAdapter (var waybills: ArrayList<WaybillEntity>, val listener: OnAd
         RecyclerView.Adapter<WaybillAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
-            AdapterWaybillBinding.inflate( LayoutInflater.from(parent.context), parent, false )
+            AdapterWaybillBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+            )
     )
 
     override fun getItemCount() = waybills.size

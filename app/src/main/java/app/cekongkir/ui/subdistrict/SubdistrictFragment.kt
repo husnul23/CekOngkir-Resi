@@ -76,9 +76,7 @@ class SubdistrictFragment : Fragment() {
     private fun setupObserver(){
         viewModel.subdistrictResponse.observe(viewLifecycleOwner, Observer {
             when(it) {
-                is Resource.Loading -> {
-                    binding.refreshSubdistrict.swipeShow()
-                }
+                is Resource.Loading -> binding.refreshSubdistrict.swipeShow()
                 is Resource.Success -> {
                     binding.refreshSubdistrict.swipeHide()
                     subdistrictAdapter.setData( it.data!!.rajaongkir.results )

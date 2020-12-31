@@ -6,10 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import app.cekongkir.R
 import app.cekongkir.database.persistence.WaybillEntity
 import app.cekongkir.databinding.FragmentWaybillBinding
 import app.cekongkir.ui.tracking.TrackingActivity
@@ -17,7 +14,9 @@ import app.cekongkir.ui.tracking.WaybillViewModel
 
 class WaybillFragment : Fragment() {
 
-    private val viewModel by lazy { ViewModelProvider(requireActivity()).get(WaybillViewModel::class.java) }
+    private val viewModel by lazy {
+        ViewModelProvider(requireActivity()).get(WaybillViewModel::class.java)
+    }
     private lateinit var binding: FragmentWaybillBinding
     private lateinit var waybillAdapter: WaybillAdapter
 
@@ -41,7 +40,6 @@ class WaybillFragment : Fragment() {
             }
         })
         binding.listWaybill.apply {
-            layoutManager = LinearLayoutManager(requireContext())
             adapter = waybillAdapter
         }
     }
@@ -53,12 +51,8 @@ class WaybillFragment : Fragment() {
     }
 
     private fun setupObserver(){
-        viewModel.waybillEntity.observe(viewLifecycleOwner, Observer {
-            if (it.isNotEmpty()) {
-                waybillAdapter.setData( it )
-            } else {
-
-            }
+        viewModel.waybillEntity.observe(viewLifecycleOwner, {
+            if (it.isNotEmpty()) waybillAdapter.setData( it )
         })
     }
 }
