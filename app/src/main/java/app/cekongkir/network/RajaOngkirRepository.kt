@@ -17,7 +17,6 @@ class RajaOngkirRepository (
     suspend fun fetchSubdistrict(city: String) = api.subdistrict(city)
 
     fun savePreferences(type: String, id: String, name: String) {
-        Timber.d("savePreferences $type $id $name")
         when (type) {
             "origin" -> {
                 pref.put(prefOriginId, id)
@@ -36,8 +35,6 @@ class RajaOngkirRepository (
                 PreferencesModel( type = "destination", id = pref.getString(prefDestinationId), name = pref.getString(prefDestinationName))
         )
     }
-
-    fun saveOrigin(key: String, value: String) = pref.put(key, value)
 
     suspend fun fetchCost( origin: String, originType: String, destination: String,
                           destinationType: String, weight: String, courier: String )

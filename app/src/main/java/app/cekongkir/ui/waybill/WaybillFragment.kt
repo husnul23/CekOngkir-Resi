@@ -11,22 +11,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.cekongkir.R
 import app.cekongkir.database.persistence.WaybillEntity
+import app.cekongkir.databinding.FragmentWaybillBinding
 import app.cekongkir.ui.tracking.TrackingActivity
 import app.cekongkir.ui.tracking.WaybillViewModel
-import kotlinx.android.synthetic.main.fragment_waybill.view.*
 
 class WaybillFragment : Fragment() {
 
-    private lateinit var fragmentView: View
-    private val viewModel by lazy {
-        ViewModelProvider(requireActivity()).get(WaybillViewModel::class.java)
-    }
+    private val viewModel by lazy { ViewModelProvider(requireActivity()).get(WaybillViewModel::class.java) }
+    private lateinit var binding: FragmentWaybillBinding
     private lateinit var waybillAdapter: WaybillAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        fragmentView = inflater.inflate(R.layout.fragment_waybill, container, false)
-        return fragmentView
+        binding = FragmentWaybillBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,14 +40,14 @@ class WaybillFragment : Fragment() {
 
             }
         })
-        fragmentView.list_waybill.apply {
+        binding.listWaybill.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = waybillAdapter
         }
     }
 
     private fun setupListener(){
-        fragmentView.edit_waybill.setOnClickListener {
+        binding.editWaybill.setOnClickListener {
             startActivity( Intent(requireContext(), TrackingActivity::class.java))
         }
     }

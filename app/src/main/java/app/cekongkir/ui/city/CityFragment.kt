@@ -12,25 +12,22 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import app.cekongkir.R
+import app.cekongkir.databinding.FragmentCityBinding
 import app.cekongkir.network.Resource
 import app.cekongkir.network.responses.CityResponse
 import app.cekongkir.utils.swipeHide
 import app.cekongkir.utils.swipeShow
-import kotlinx.android.synthetic.main.fragment_city.*
-import kotlinx.android.synthetic.main.fragment_city.view.*
 
 class CityFragment : Fragment() {
 
-    private lateinit var fragmentView: View
+    private lateinit var binding: FragmentCityBinding
+    private val viewModel by lazy { ViewModelProvider(requireActivity()).get(CityViewModel::class.java) }
     private lateinit var cityAdapter: CityAdapter
-    private val viewModel by lazy {
-        ViewModelProvider(requireActivity()).get(CityViewModel::class.java)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        fragmentView = inflater.inflate(R.layout.fragment_city, container, false)
-        return fragmentView
+        binding = FragmentCityBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,14 +40,14 @@ class CityFragment : Fragment() {
 
     private fun setupView(){
         viewModel.titleBar.postValue("Pilih Kota")
-        fragmentView.edit_search.isEnabled = false
+        binding.editSearch.isEnabled = false
     }
 
     private fun setupListener(){
-        fragmentView.edit_search.doAfterTextChanged {
+        binding.editSearch.doAfterTextChanged {
             cityAdapter.filter.filter( it.toString() )
         }
-        refresh_city.setOnRefreshListener {
+        binding.refreshCity.setOnRefreshListener {
             viewModel.fetchCity()
         }
     }
@@ -67,22 +64,22 @@ class CityFragment : Fragment() {
                 )
             }
         })
-        fragmentView.list_city.adapter = cityAdapter
+        binding.listCity.adapter = cityAdapter
     }
 
     private fun setupObserver(){
         viewModel.cityResponse.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Resource.Loading -> {
-                    refresh_city.swipeShow()
+                    binding.refreshCity.swipeShow()
                 }
                 is Resource.Success -> {
-                    refresh_city.swipeHide()
+                    binding.refreshCity.swipeHide()
                     cityAdapter.setData(it.data!!.rajaongkir.results)
-                    fragmentView.edit_search.isEnabled = true
+                    binding.editSearch.isEnabled = true
                 }
                 is Resource.Error -> {
-                    refresh_city.swipeHide()
+                    binding.refreshCity.swipeHide()
                     Toast.makeText(context, it.message!!, Toast.LENGTH_SHORT).show()
                 }
             }

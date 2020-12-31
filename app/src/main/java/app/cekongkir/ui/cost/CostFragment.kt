@@ -10,22 +10,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.cekongkir.R
 import app.cekongkir.database.preferences.*
+import app.cekongkir.databinding.FragmentCostBinding
 import app.cekongkir.network.Resource
 import app.cekongkir.ui.city.CityActivity
 import app.cekongkir.utils.*
-import kotlinx.android.synthetic.main.fragment_cost.*
-import kotlinx.android.synthetic.main.fragment_cost.view.*
 import timber.log.Timber
-
-// TODO pref now showing at UI
 
 class CostFragment : Fragment(){
 
-    private val viewModel by lazy {
-        ViewModelProvider(requireActivity()).get(CostViewModel::class.java)
-    }
-
+    private val viewModel by lazy { ViewModelProvider(requireActivity()).get(CostViewModel::class.java) }
     private lateinit var fragmentView: View
+    private lateinit var binding: FragmentCostBinding
     private lateinit var costAdapter: CostAdapter
 
     private var originSubdistricId: String? = ""
@@ -33,8 +28,8 @@ class CostFragment : Fragment(){
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        fragmentView = inflater.inflate(R.layout.fragment_cost, container, false)
-        return fragmentView
+        binding = FragmentCostBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,26 +47,26 @@ class CostFragment : Fragment(){
 
     private fun setupRecyclerView(){
         costAdapter = CostAdapter(arrayListOf())
-        list_cost.apply {
+        binding.listCost.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = costAdapter
         }
     }
 
     private fun setupListener(){
-        edit_origin.setOnClickListener {
+        binding.editOrigin.setOnClickListener {
             startActivity(
                     Intent(requireActivity(), CityActivity::class.java)
                             .putExtra( "intent_type", "origin")
             )
         }
-        fragmentView.edit_destination.setOnClickListener {
+        binding.editDestination.setOnClickListener {
             startActivity(
                     Intent(requireActivity(), CityActivity::class.java)
                             .putExtra( "intent_type", "destination")
             )
         }
-        fragmentView.button_cost.setOnClickListener {
+        binding.buttonCost.setOnClickListener {
             if (originSubdistricId.isNullOrEmpty() || destinationSubdistricId.isNullOrEmpty()) {
                 showToast("Lengkapi data pencarian")
             } else {
@@ -90,10 +85,10 @@ class CostFragment : Fragment(){
     private fun loadingCost(loading: Boolean) {
         when (loading) {
             true -> {
-                progress_cost.visibility = View.VISIBLE
+                binding.progressCost.visibility = View.VISIBLE
             }
             false -> {
-                progress_cost.visibility = View.GONE
+                binding.progressCost.visibility = View.GONE
             }
         }
     }
@@ -105,11 +100,11 @@ class CostFragment : Fragment(){
                 when (it.type) {
                     "origin" -> {
                         originSubdistricId = it.id
-                        edit_origin.setText( it.name )
+                        binding.editOrigin.setText( it.name )
                     }
                     "destination" -> {
                         destinationSubdistricId = it.id
-                        edit_destination.setText( it.name )
+                        binding.editDestination.setText( it.name )
                     }
                 }
             }
@@ -117,14 +112,14 @@ class CostFragment : Fragment(){
         viewModel.costResponse.observe( viewLifecycleOwner, {
             when (it) {
                 is Resource.Loading -> {
-                    fragmentView.progress_cost.visibility = View.VISIBLE
+                    binding.progressCost.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    fragmentView.progress_cost.visibility = View.GONE
+                    binding.progressCost.visibility = View.GONE
                     costAdapter.setData( it.data!!.rajaongkir.results )
                 }
                 is Resource.Error -> {
-                    fragmentView.progress_cost.visibility = View.GONE
+                    binding.progressCost.visibility = View.GONE
                 }
             }
         })

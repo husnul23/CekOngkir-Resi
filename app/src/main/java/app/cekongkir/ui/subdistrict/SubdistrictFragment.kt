@@ -9,30 +9,25 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.cekongkir.R
-import app.cekongkir.database.preferences.*
+import app.cekongkir.databinding.FragmentSubdistrictBinding
 import app.cekongkir.network.Resource
 import app.cekongkir.network.responses.SubdistrictResponse
-import app.cekongkir.ui.city.CityActivity
 import app.cekongkir.ui.city.CityViewModel
-import app.cekongkir.ui.cost.CostViewModel
 import app.cekongkir.utils.*
-import kotlinx.android.synthetic.main.fragment_subdistrict.*
-import kotlinx.android.synthetic.main.fragment_subdistrict.view.*
-import timber.log.Timber
 
 class SubdistrictFragment : Fragment() {
 
-    private lateinit var fragmentView: View
-    private lateinit var subdistrictAdapter: SubdistrictAdapter
     private val viewModel by lazy { ViewModelProvider(requireActivity()).get(CityViewModel::class.java) }
+    private lateinit var binding: FragmentSubdistrictBinding
+    private lateinit var subdistrictAdapter: SubdistrictAdapter
     private val type by lazy { requireActivity().intent.getStringExtra( "intent_type" )!! }
     private val cityId by lazy { requireArguments().getString("city_id")!! }
     private val cityName by lazy { requireArguments().getString("city_name")!! }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        fragmentView = inflater.inflate(R.layout.fragment_subdistrict, container, false)
-        return fragmentView
+        binding = FragmentSubdistrictBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,14 +58,14 @@ class SubdistrictFragment : Fragment() {
                 requireActivity().finish()
             }
         })
-        fragmentView.list_subdistrict.apply {
+        binding.listSubdistrict.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = subdistrictAdapter
         }
     }
 
     private fun setupListener(){
-        refresh_subdistrict.setOnRefreshListener {
+        binding.refreshSubdistrict.setOnRefreshListener {
             viewModel.fetchSubdistrict( cityId )
         }
     }
@@ -79,14 +74,14 @@ class SubdistrictFragment : Fragment() {
         viewModel.subdistrictResponse.observe(viewLifecycleOwner, Observer {
             when(it) {
                 is Resource.Loading -> {
-                    refresh_subdistrict.swipeShow()
+                    binding.refreshSubdistrict.swipeShow()
                 }
                 is Resource.Success -> {
-                    refresh_subdistrict.swipeHide()
+                    binding.refreshSubdistrict.swipeHide()
                     subdistrictAdapter.setData( it.data!!.rajaongkir.results )
                 }
                 is Resource.Error -> {
-                    refresh_subdistrict.swipeHide()
+                    binding.refreshSubdistrict.swipeHide()
                     requireActivity().showToast(resources.getString(R.string.message_error))
                 }
             }

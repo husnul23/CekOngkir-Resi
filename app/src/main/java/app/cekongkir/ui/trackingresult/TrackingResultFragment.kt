@@ -7,27 +7,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import app.cekongkir.R
+import app.cekongkir.databinding.FragmentTrackingResultBinding
 import app.cekongkir.network.Resource
 import app.cekongkir.ui.tracking.WaybillViewModel
 import app.cekongkir.utils.swipeHide
 import app.cekongkir.utils.swipeShow
-import kotlinx.android.synthetic.main.fragment_tracking_result.view.*
 
 class TrackingResultFragment : Fragment() {
 
-    private lateinit var fragmentView: View
-    private val viewModel by lazy {
-        ViewModelProvider(requireActivity()).get(WaybillViewModel::class.java)
-    }
+    private val viewModel by lazy { ViewModelProvider(requireActivity()).get(WaybillViewModel::class.java) }
+    private lateinit var binding: FragmentTrackingResultBinding
     private val waybill by lazy { requireArguments().getString("waybill")!! }
     private val courier by lazy { requireArguments().getString("courier")!! }
     private lateinit var manifestAdapter: TrackingAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        fragmentView = inflater.inflate(R.layout.fragment_tracking_result, container, false)
-        return fragmentView
+        binding = FragmentTrackingResultBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onStart() {
@@ -44,11 +41,11 @@ class TrackingResultFragment : Fragment() {
 
     private fun setupRecyclerView(){
         manifestAdapter = TrackingAdapter(arrayListOf())
-        fragmentView.list_manifest.adapter = manifestAdapter
+        binding.listManifest.adapter = manifestAdapter
     }
 
     private fun setupListener(){
-        fragmentView.refresh_waybill.setOnRefreshListener {
+        binding.refreshWaybill.setOnRefreshListener {
             viewModel.fetchWaybill( waybill, courier )
         }
     }
@@ -57,18 +54,18 @@ class TrackingResultFragment : Fragment() {
         viewModel.waybillResponse.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Resource.Loading -> {
-                    fragmentView.refresh_waybill.swipeShow()
+                    binding.refreshWaybill.swipeShow()
                 }
                 is Resource.Success -> {
-                    fragmentView.refresh_waybill.swipeHide()
+                    binding.refreshWaybill.swipeHide()
                     val data = it.data!!.rajaongkir.result
-                    fragmentView.text_status.text = data.delivery_status.status
-                    fragmentView.text_receiver.text = data.delivery_status.pod_receiver
-                    fragmentView.text_date.text = "${data.delivery_status.pod_date} ${data.delivery_status.pod_time}"
+                    binding.textStatus.text = data.delivery_status.status
+                    binding.textReceiver.text = data.delivery_status.pod_receiver
+                    binding.textDate.text = "${data.delivery_status.pod_date} ${data.delivery_status.pod_time}"
                     manifestAdapter.setData( data.manifest )
                 }
                 is Resource.Error -> {
-                    fragmentView.refresh_waybill.swipeHide()
+                    binding.refreshWaybill.swipeHide()
                 }
             }
         })

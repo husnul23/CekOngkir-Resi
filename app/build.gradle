@@ -29,6 +29,10 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -37,13 +41,12 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    testImplementation 'junit:junit:4.13'
+    testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    // Material design
+    // Material Design
     implementation 'com.google.android.material:material:1.2.1'
-    implementation "androidx.viewpager2:viewpager2:1.0.0"
 
     // Retrofit
     def retrofit2_version = "2.9.0"
@@ -55,11 +58,12 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$interceptor_version"
 
     // Navigation
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.1'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.1'
+    def navigation_version = "2.3.2"
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
 
     // Room
-    def room_version = "2.2.5"
+    def room_version = "2.2.6"
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
@@ -79,6 +83,7 @@ dependencies {
     implementation "org.kodein.di:kodein-di-framework-android-x:$kodein_version"
 
     // Utils
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.jakewharton.timber:timber:4.7.1'
 }

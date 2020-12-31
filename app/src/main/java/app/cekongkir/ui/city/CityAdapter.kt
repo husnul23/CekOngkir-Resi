@@ -1,14 +1,12 @@
 package app.cekongkir.ui.city
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
-import app.cekongkir.R
+import app.cekongkir.databinding.AdapterCityBinding
 import app.cekongkir.network.responses.CityResponse
-import kotlinx.android.synthetic.main.adapter_city.view.*
 import timber.log.Timber
 import kotlin.collections.ArrayList
 
@@ -24,24 +22,21 @@ class CityAdapter (
         citiesFilter = cities
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            ViewHolder(
-                    LayoutInflater.from(parent.context).inflate(
-                            R.layout.adapter_city, parent, false
-                    )
-            )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder (
+            AdapterCityBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    )
 
     override fun getItemCount() = citiesFilter.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val city = citiesFilter[position]
-        holder.view.text_name.text = city.city_name
-        holder.view.text_name.setOnClickListener {
+        holder.binding.textName.text = city.city_name
+        holder.binding.container.setOnClickListener {
             listener.onClick(city)
         }
     }
 
-    class ViewHolder(val view: View): RecyclerView.ViewHolder(view)
+    class ViewHolder(val binding: AdapterCityBinding): RecyclerView.ViewHolder(binding.root)
 
     fun setData(data: List<CityResponse.Rajaongkir.Result>) {
         cities.clear()

@@ -9,7 +9,7 @@ import app.cekongkir.network.Resource
 import app.cekongkir.network.responses.WaybillResponse
 import app.cekongkir.network.RajaOngkirRepository
 import kotlinx.coroutines.launch
-import retrofit2.Response
+import timber.log.Timber
 
 class WaybillViewModel(
     private val repository: RajaOngkirRepository
@@ -20,18 +20,14 @@ class WaybillViewModel(
 
     fun fetchWaybill(waybill: String, courier: String) = viewModelScope.launch {
         waybillResponse.postValue(Resource.Loading())
-        val response = repository.fetchWaybill(waybill, courier)
-        waybillResponse.postValue(handleWaybillResponse(response))
-    }
-
-    private fun handleWaybillResponse(response: Response<WaybillResponse>) : Resource<WaybillResponse> {
-        if (response.isSuccessful) {
-            response.body()?.let {
-                saveWaybill( it.rajaongkir )
-                return Resource.Success(it)
-            }
+        try {
+            val response = repository.fetchWaybill(waybill, courier)
+            waybillResponse.postValue(Resource.Success(response.body()!!))
+            saveWaybill( response.body()!!.rajaongkir )
+        } catch (e: Exception) {
+            waybillResponse.postValue(Resource.Error(e.message.toString()))
+            Timber.e(e)
         }
-        return Resource.Error(response.message())
     }
 
     private fun saveWaybill(waybill: WaybillResponse.Rajaongkir) = viewModelScope.launch {

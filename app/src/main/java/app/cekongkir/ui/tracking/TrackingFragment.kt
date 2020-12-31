@@ -9,21 +9,21 @@ import android.widget.ArrayAdapter
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import app.cekongkir.R
+import app.cekongkir.databinding.FragmentTrackingBinding
 import app.cekongkir.utils.showToast
-import kotlinx.android.synthetic.main.fragment_tracking.view.*
 
 private const val SICEPAT = "000421030654"
 
 class TrackingFragment : Fragment() {
 
-    private lateinit var fragmentView: View
+    private lateinit var binding: FragmentTrackingBinding
     private var courier: String = ""
     private var waybill: String = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        fragmentView = inflater.inflate(R.layout.fragment_tracking, container, false)
-        return fragmentView
+        binding = FragmentTrackingBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,7 +34,7 @@ class TrackingFragment : Fragment() {
     }
 
     private fun setupTest(){
-        fragmentView.edit_waybill.setText( SICEPAT )
+        binding.editWaybill.setText( SICEPAT )
     }
 
     private fun setupSpinner(){
@@ -42,14 +42,14 @@ class TrackingFragment : Fragment() {
                 requireContext(), R.array.courier, android.R.layout.simple_spinner_item
         )
         courierAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        fragmentView.list_courier.adapter = courierAdapter
+        binding.listCourier.adapter = courierAdapter
     }
 
     private fun setupListener(){
-        fragmentView.button_track.setOnClickListener {
+        binding.buttonTrack.setOnClickListener {
 
-            courier = fragmentView.list_courier.selectedItem.toString()
-            waybill = fragmentView.edit_waybill.text.toString()
+            courier = binding.listCourier.selectedItem.toString()
+            waybill = binding.editWaybill.text.toString()
 
             if (waybill.isNotEmpty() && courier.isNotEmpty() ) {
                 findNavController().navigate(

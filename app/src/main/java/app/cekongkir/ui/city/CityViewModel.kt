@@ -26,8 +26,8 @@ class CityViewModel(
     }
 
     fun fetchCity() = viewModelScope.launch {
+        cityResponse.postValue(Resource.Loading())
         try {
-            cityResponse.postValue(Resource.Loading())
             val response = repository.fetchCity()
             cityResponse.postValue(Resource.Success(response.body()!!))
         } catch (e: Exception) {
@@ -37,8 +37,8 @@ class CityViewModel(
     }
 
     fun fetchSubdistrict(city: String) = viewModelScope.launch {
+        subdistrictResponse.value = Resource.Loading()
         try {
-            subdistrictResponse.value = Resource.Loading()
             val response = repository.fetchSubdistrict(city)
             subdistrictResponse.value = Resource.Success(response.body()!!)
         } catch (e: Exception) {
