@@ -1,19 +1,19 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-apply plugin: "androidx.navigation.safeargs"
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id "androidx.navigation.safeargs"
+}
 
 android {
     compileSdkVersion 30
     defaultConfig {
         applicationId "com.lazday.cekongkir"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 30
-        versionCode 4
-        versionName "1.2"
+        versionCode 1
+        versionName "1"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
-        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -84,6 +84,5 @@ dependencies {
 
     // Utils
     implementation "androidx.viewpager2:viewpager2:1.0.0"
-    implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.jakewharton.timber:timber:4.7.1'
 }

@@ -18,7 +18,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/tracking_navigation"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
