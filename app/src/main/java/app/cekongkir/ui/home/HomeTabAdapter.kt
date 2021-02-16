@@ -13,4 +13,12 @@ class HomeTabAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle)
         private val fragments: ArrayList<Fragment> = arrayListOf(
                 CostFragment(), WaybillFragment()
         )
+
+    override fun getItemCount(): Int {
+        return fragments.size
+    }
+
+    override fun createFragment(position: Int): Fragment {
+        return fragments[position]
+    }
 }
