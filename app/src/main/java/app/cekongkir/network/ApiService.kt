@@ -11,7 +11,7 @@ private const val apiKey = "3956ee2b19e6005fa6cf8512adc7f70b"
 
 object ApiService {
 
-    fun getClient(): Retrofit {
+    fun getClient(): RajaOngkirEndpoint {
 
         val logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -31,7 +31,7 @@ object ApiService {
             .baseUrl( baseUrl )
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
-            .build()
+            .build().create(RajaOngkirEndpoint::class.java)
     }
 
 }
