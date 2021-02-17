@@ -13,9 +13,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-115" />
-                            <option name="y" value="-15" />
+                            <option name="x" value="-57" />
+                            <option name="y" value="7" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_cityFragment_to_subdistrictFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -25,8 +34,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="70" />
-                            <option name="y" value="-11" />
+                            <option name="x" value="158" />
+                            <option name="y" value="-3" />
                           </Point>
                         </option>
                       </LayoutPositions>
