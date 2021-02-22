@@ -2,10 +2,13 @@ package app.cekongkir.ui.city
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import app.cekongkir.R
 import app.cekongkir.network.ApiService
+import app.cekongkir.network.Resource
+import timber.log.Timber
 
 class CityActivity : AppCompatActivity(){
 
@@ -17,10 +20,8 @@ class CityActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_city)
         setupViewModel()
+        setupObserver()
 
-        viewModel.titleBar.observe(this, Observer { title ->
-            supportActionBar?.title = title
-        })
 
     }
 
@@ -31,6 +32,25 @@ class CityActivity : AppCompatActivity(){
 
     private fun setupViewModel() {
         viewModelFactory = CityViewModelFactory(api)
-        viewModel = ViewModelProvider(this).get(CityViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(CityViewModel::class.java)
+    }
+
+    private fun setupObserver() {
+        viewModel.titleBar.observe( this, Observer { title ->
+            supportActionBar!!.title = title
+        })
+        viewModel.cityResponse.observe(this, Observer {
+            when (it) {
+                is Resource.Loading -> {
+                    Timber.e("RajaOngkir isLoading")
+                }
+                is Resource.Success -> {
+                    Timber.e("RajaOngkir ${it.data!!.rajaongkir}")
+                }
+                is Resource.Error -> {
+                    Toast.makeText(applicationContext, it.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
     }
 }
