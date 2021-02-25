@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -30,24 +32,31 @@ class CityFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupView()
         setupRecyclerView()
         setupListener()
         setupObserver()
+    }
+
+    private fun setupView() {
         viewModel.titleBar.postValue("Pilih Kota")
-
-
     }
 
     private fun setupListener() {
-        binding.container.setOnClickListener {
-            findNavController().navigate(R.id.action_cityFragment_to_subdistrictFragment)
+        binding.editSearch.doAfterTextChanged {
+            cityAdapter.filter.filter( it.toString() )
+        }
+        binding.refreshCity.setOnRefreshListener {
+            viewModel.fetchCity()
         }
     }
 
     private fun setupRecyclerView() {
         cityAdapter = CityAdapter(arrayListOf(), object : CityAdapter.OnAdapterListener{
             override fun onClick(result: CityResponse.Rajaongkir.Results) {
-
+                findNavController().navigate(
+                        R.id.action_cityFragment_to_subdistrictFragment,
+                        bundleOf("city_id" to result.city_id, "city_name" to result.city_name))
             }
         })
         binding.listCity.adapter = cityAdapter
@@ -58,12 +67,15 @@ class CityFragment : Fragment() {
             when (it) {
                 is Resource.Loading -> {
                     Timber.e("RajaOngkir isLoading")
+                    binding.refreshCity.isRefreshing = true
                 }
                 is Resource.Success -> {
+                    binding.refreshCity.isRefreshing = false
                     Timber.e("RajaOngkir ${it.data!!.rajaongkir}")
                     cityAdapter.setData( it.data.rajaongkir.results)
                 }
                 is Resource.Error -> {
+                    binding.refreshCity.isRefreshing = false
                     Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                 }
             }
