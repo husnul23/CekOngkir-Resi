@@ -39,18 +39,5 @@ class CityActivity : AppCompatActivity(){
         viewModel.titleBar.observe( this, Observer { title ->
             supportActionBar!!.title = title
         })
-        viewModel.cityResponse.observe(this, Observer {
-            when (it) {
-                is Resource.Loading -> {
-                    Timber.e("RajaOngkir isLoading")
-                }
-                is Resource.Success -> {
-                    Timber.e("RajaOngkir ${it.data!!.rajaongkir}")
-                }
-                is Resource.Error -> {
-                    Toast.makeText(applicationContext, it.message, Toast.LENGTH_SHORT).show()
-                }
-            }
-        })
     }
 }
