@@ -10,8 +10,8 @@ import app.cekongkir.network.response.CityResponse
 import timber.log.Timber
 
 class CityAdapter(
-        val cities: ArrayList<CityResponse.Rajaongkir.Results>,
-        val listener: OnAdapterListener
+        var cities: ArrayList<CityResponse.Rajaongkir.Results>,
+        var listener: OnAdapterListener
 ): RecyclerView.Adapter<CityAdapter.ViewHolder>(), Filterable {
 
     private var citiesFilter = ArrayList<CityResponse.Rajaongkir.Results>()
