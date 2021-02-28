@@ -4,14 +4,13 @@ data class SubDistrictResponse(
         val rajaongkir: Rajaongkir
 ) {
     data class Rajaongkir(
-            val query: List<Any>,
+            val query: Query,
             val results: List<Results>,
             val status: Status
     ) {
         data class Query(
                 val city: String
-                )
-
+        )
         data class Results(
                 val city: String,
                 val city_id: String,
