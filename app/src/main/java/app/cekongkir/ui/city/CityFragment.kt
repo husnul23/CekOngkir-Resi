@@ -1,6 +1,5 @@
 package app.cekongkir.ui.city
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -44,7 +43,7 @@ class CityFragment : Fragment() {
 
     private fun setupListener() {
         binding.editSearch.doAfterTextChanged {
-            cityAdapter.filter.filter( it.toString() )
+            cityAdapter.filter.filter(it.toString())
         }
         binding.refreshCity.setOnRefreshListener {
             viewModel.fetchCity()
@@ -52,8 +51,9 @@ class CityFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        cityAdapter = CityAdapter(arrayListOf(), object : CityAdapter.OnAdapterListener{
+        cityAdapter = CityAdapter(arrayListOf(), object : CityAdapter.OnAdapterListener {
             override fun onClick(result: CityResponse.Rajaongkir.Results) {
+                viewModel.fetchSubDistrict(result.city_id)
                 findNavController().navigate(
                         R.id.action_cityFragment_to_subdistrictFragment,
                         bundleOf("city_id" to result.city_id, "city_name" to result.city_name))
@@ -72,7 +72,7 @@ class CityFragment : Fragment() {
                 is Resource.Success -> {
                     binding.refreshCity.isRefreshing = false
                     Timber.e("RajaOngkir ${it.data!!.rajaongkir}")
-                    cityAdapter.setData( it.data.rajaongkir.results)
+                    cityAdapter.setData(it.data.rajaongkir.results)
                 }
                 is Resource.Error -> {
                     binding.refreshCity.isRefreshing = false
