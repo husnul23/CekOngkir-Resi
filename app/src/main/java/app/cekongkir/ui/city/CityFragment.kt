@@ -32,8 +32,8 @@ class CityFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupView()
-        setupRecyclerView()
         setupListener()
+        setupRecyclerView()
         setupObserver()
     }
 
@@ -56,7 +56,9 @@ class CityFragment : Fragment() {
                 viewModel.fetchSubDistrict(result.city_id)
                 findNavController().navigate(
                         R.id.action_cityFragment_to_subdistrictFragment,
-                        bundleOf("city_id" to result.city_id, "city_name" to result.city_name))
+                        bundleOf(
+                                "city_id" to result.city_id,
+                                "city_name" to result.city_name))
             }
         })
         binding.listCity.adapter = cityAdapter
