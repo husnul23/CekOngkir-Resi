@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.cekongkir.network.ApiService
 import app.cekongkir.network.RajaOngkirEndpoint
+import app.cekongkir.network.RajaOngkirRepository
 import app.cekongkir.network.Resource
 import app.cekongkir.network.response.CityResponse
 import app.cekongkir.network.response.SubDistrictResponse
@@ -12,7 +13,7 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class CityViewModel(
-        val api: RajaOngkirEndpoint
+        val repository: RajaOngkirRepository
 ) : ViewModel() {
 
     val titleBar: MutableLiveData<String> = MutableLiveData("")
@@ -26,7 +27,8 @@ class CityViewModel(
     fun fetchCity() = viewModelScope.launch {
         cityResponse.value = Resource.Loading()
         try {
-            cityResponse.value = Resource.Success( api.city().body()!! )
+            val response = repository.fetchCity()
+            cityResponse.value = Resource.Success( response.body()!! )
         } catch ( e: Exception) {
             cityResponse.value = Resource.Error(e.message.toString())
         }
@@ -35,7 +37,8 @@ class CityViewModel(
     fun fetchSubDistrict(id: String) = viewModelScope.launch {
         cityResponse.value = Resource.Loading()
         try {
-            subDistrictResponse.value = Resource.Success( api.subdistrict(id).body()!! )
+            val response = repository.fetchSubdistrict(id)
+            subDistrictResponse.value = Resource.Success( response.body()!! )
         } catch ( e: Exception) {
             subDistrictResponse.value = Resource.Error(e.message.toString())
         }
