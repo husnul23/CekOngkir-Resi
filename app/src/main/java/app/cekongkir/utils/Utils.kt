@@ -1,7 +1,6 @@
 package app.cekongkir.utils
 
 import android.app.Activity
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
