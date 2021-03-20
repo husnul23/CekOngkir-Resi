@@ -20,7 +20,7 @@ class SubdistrictFragment : Fragment() {
     private lateinit var binding: FragmentSubdistrictBinding
     private lateinit var subdistrictAdapter: SubdistrictAdapter
     private val cityId by lazy { requireArguments().getString("city_id") }
-    private val type by lazy { requireActivity().intent.getStringExtra("type") }
+    private val type by lazy { requireActivity().intent.getStringExtra("intent_type") }
     private val cityName by lazy { requireArguments().getString("city_name") }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +45,7 @@ class SubdistrictFragment : Fragment() {
                         id = result.subdistrict_id,
                         name = "$cityName, ${result.subdistrict_name}"
                 )
+                requireActivity().finish()
             }
 
         })
