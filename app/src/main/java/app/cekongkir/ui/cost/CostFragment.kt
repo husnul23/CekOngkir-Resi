@@ -34,21 +34,9 @@ class CostFragment : Fragment(){
         setupObserver()
     }
 
-    private fun setupObserver() {
-        viewModel.preference.observe(viewLifecycleOwner, Observer { preferenceList ->
-            preferenceList.forEach {
-                when (it.type) {
-                    "origin" -> {
-                        originId = it.id
-                        binding.editOrigin.setText(it.name)
-                    }
-                    "destination" -> {
-                        destinationId = it.id
-                        binding.editDestination.setText(it.name)
-                    }
-                }
-            }
-        })
+    override fun onStart() {
+        super.onStart()
+        viewModel.getPreferences()
     }
 
     private fun setupListener() {
@@ -67,8 +55,20 @@ class CostFragment : Fragment(){
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        viewModel.getPreferences()
+    private fun setupObserver() {
+        viewModel.preference.observe(viewLifecycleOwner, Observer { preferenceList ->
+            preferenceList.forEach {
+                when (it.type) {
+                    "origin" -> {
+                        originId = it.id
+                        binding.editOrigin.setText(it.name)
+                    }
+                    "destination" -> {
+                        destinationId = it.id
+                        binding.editDestination.setText(it.name)
+                    }
+                }
+            }
+        })
     }
 }
